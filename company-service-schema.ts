@@ -1,4 +1,4 @@
-import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
+import { GraphQLID, GraphQLInputObjectType, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
 
 const companies = [
   {
@@ -47,6 +47,15 @@ const CompaniesType = new GraphQLObjectType({
   },
 });
 
+const ListCompaniesByIdsInputType = new GraphQLInputObjectType({
+  name: 'ListCompaniesByIdsInput',
+  fields: () => ({
+    companiesIds: {
+      type: new GraphQLList(GraphQLString),
+    }
+  }),
+});
+
 export default new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
@@ -54,11 +63,11 @@ export default new GraphQLSchema({
       listCompanies: {
         type: CompaniesType,
         args: {
-          ids: {
-            type: new GraphQLList(GraphQLID),
+          input : {
+            type: ListCompaniesByIdsInputType, //new GraphQLList(GraphQLString),
           },
         },
-        resolve: (_, { ids }) => ({ companies: ids ? ids.map(id => companies.find(company => company.id === id)) : companies})
+        resolve: (_, { input: {companiesIds } }) => ({ companies: companiesIds ? companiesIds.map(id => companies.find(company => company.id === id)) : companies})
       },
     },
   }),
