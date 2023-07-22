@@ -3,7 +3,7 @@ schema {
 }
 
 type Query {
-  listCompanies(ids: [ID]): Companies
+  listCompanies(input: ListCompaniesByIdsInput): Companies
 }
 
 type Companies {
@@ -14,4 +14,8 @@ type Company {
   id: String
   name: String
   legalName: String
+}
+
+input ListCompaniesByIdsInput {
+  companiesIds: [String]
 }

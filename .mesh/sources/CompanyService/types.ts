@@ -26,7 +26,7 @@ export type Query = {
 
 
 export type QuerylistCompaniesArgs = {
-  ids?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  input?: InputMaybe<ListCompaniesByIdsInput>;
 };
 
 export type Companies = {
@@ -37,6 +37,10 @@ export type Company = {
   id?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   legalName?: Maybe<Scalars['String']['output']>;
+};
+
+export type ListCompaniesByIdsInput = {
+  companiesIds?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
   export type QuerySdk = {

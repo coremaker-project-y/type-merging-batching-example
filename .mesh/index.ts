@@ -6,8 +6,8 @@ import { getMesh, ExecuteMeshFn, SubscribeMeshFn, MeshContext as BaseMeshContext
 import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
 import { path as pathModule } from '@graphql-mesh/cross-helpers';
 import { ImportFn } from '@graphql-mesh/types';
-import type { CompanyServiceTypes } from './sources/CompanyService/types';
 import type { AccessRightServiceTypes } from './sources/AccessRightService/types';
+import type { CompanyServiceTypes } from './sources/CompanyService/types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -35,7 +35,7 @@ export type Query = {
 
 
 export type QuerylistCompaniesArgs = {
-  ids?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  input?: InputMaybe<ListCompaniesByIdsInput>;
 };
 
 export type Companies = {
@@ -46,6 +46,10 @@ export type Company = {
   id?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   legalName?: Maybe<Scalars['String']['output']>;
+};
+
+export type ListCompaniesByIdsInput = {
+  companiesIds?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type AccessRights = {
@@ -154,7 +158,7 @@ export type ResolversTypes = ResolversObject<{
   Companies: ResolverTypeWrapper<Companies>;
   Company: ResolverTypeWrapper<Company>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  ListCompaniesByIdsInput: ListCompaniesByIdsInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   AccessRights: ResolverTypeWrapper<AccessRights>;
   AccessRight: ResolverTypeWrapper<AccessRight>;
@@ -168,7 +172,7 @@ export type ResolversParentTypes = ResolversObject<{
   Companies: Companies;
   Company: Company;
   String: Scalars['String']['output'];
-  ID: Scalars['ID']['output'];
+  ListCompaniesByIdsInput: ListCompaniesByIdsInput;
   Boolean: Scalars['Boolean']['output'];
   AccessRights: AccessRights;
   AccessRight: AccessRight;

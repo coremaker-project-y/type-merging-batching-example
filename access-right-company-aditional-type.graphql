@@ -5,6 +5,6 @@ extend type AccessRightCompany {
     sourceFieldName: "listCompanies",
     result: "companies",
     keyField: "id",
-    keysArg: "ids"
+    keysArg: "input.companiesIds"
   )
 }
