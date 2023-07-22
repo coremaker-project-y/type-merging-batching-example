@@ -15,5 +15,6 @@ sources:
 additionalTypeDefs: 
   - './access-right-company-aditional-type.graphql'
 
-#documents:
-#  - ./example-queries/*.graphql
+additionalResolvers:
+  - './additional-resolver.ts'
+

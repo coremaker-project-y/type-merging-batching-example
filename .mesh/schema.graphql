@@ -2,8 +2,6 @@ schema {
   query: Query
 }
 
-directive @resolveTo(requiredSelectionSet: String, sourceName: String!, sourceTypeName: String!, sourceFieldName: String!, sourceSelectionSet: String, sourceArgs: ResolveToSourceArgs, keyField: String, keysArg: String, pubsubTopic: String, filterBy: String, additionalArgs: ResolveToSourceArgs, result: String, resultType: String) on FIELD_DEFINITION
-
 type Query {
   listCompanies(input: ListCompaniesByIdsInput): Companies
   listAccessRights: AccessRights
@@ -36,7 +34,5 @@ type AccessRight {
 type AccessRightCompany {
   id: String
   title: String
-  company: Company @resolveTo(sourceName: "CompanyService", sourceTypeName: "Query", sourceFieldName: "listCompanies", result: "companies", keyField: "id", keysArg: "input.companiesIds")
+  company: Company
 }
-
-scalar ResolveToSourceArgs
