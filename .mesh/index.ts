@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { GraphQLResolveInfo, SelectionSetNode, FieldNode, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { GraphQLResolveInfo, SelectionSetNode, FieldNode } from 'graphql';
 import { findAndParseConfig } from '@graphql-mesh/cli';
 import { createMeshHTTPHandler, MeshHTTPHandler } from '@graphql-mesh/http';
 import { getMesh, ExecuteMeshFn, SubscribeMeshFn, MeshContext as BaseMeshContext, MeshInstance } from '@graphql-mesh/runtime';
@@ -25,7 +25,6 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  ResolveToSourceArgs: { input: any; output: any; }
 };
 
 export type Query = {
@@ -163,7 +162,6 @@ export type ResolversTypes = ResolversObject<{
   AccessRights: ResolverTypeWrapper<AccessRights>;
   AccessRight: ResolverTypeWrapper<AccessRight>;
   AccessRightCompany: ResolverTypeWrapper<AccessRightCompany>;
-  ResolveToSourceArgs: ResolverTypeWrapper<Scalars['ResolveToSourceArgs']['output']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -177,26 +175,7 @@ export type ResolversParentTypes = ResolversObject<{
   AccessRights: AccessRights;
   AccessRight: AccessRight;
   AccessRightCompany: AccessRightCompany;
-  ResolveToSourceArgs: Scalars['ResolveToSourceArgs']['output'];
 }>;
-
-export type resolveToDirectiveArgs = {
-  requiredSelectionSet?: Maybe<Scalars['String']['input']>;
-  sourceName: Scalars['String']['input'];
-  sourceTypeName: Scalars['String']['input'];
-  sourceFieldName: Scalars['String']['input'];
-  sourceSelectionSet?: Maybe<Scalars['String']['input']>;
-  sourceArgs?: Maybe<Scalars['ResolveToSourceArgs']['input']>;
-  keyField?: Maybe<Scalars['String']['input']>;
-  keysArg?: Maybe<Scalars['String']['input']>;
-  pubsubTopic?: Maybe<Scalars['String']['input']>;
-  filterBy?: Maybe<Scalars['String']['input']>;
-  additionalArgs?: Maybe<Scalars['ResolveToSourceArgs']['input']>;
-  result?: Maybe<Scalars['String']['input']>;
-  resultType?: Maybe<Scalars['String']['input']>;
-};
-
-export type resolveToDirectiveResolver<Result, Parent, ContextType = MeshContext, Args = resolveToDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   listCompanies?: Resolver<Maybe<ResolversTypes['Companies']>, ParentType, ContextType, Partial<QuerylistCompaniesArgs>>;
@@ -234,10 +213,6 @@ export type AccessRightCompanyResolvers<ContextType = MeshContext, ParentType ex
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export interface ResolveToSourceArgsScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ResolveToSourceArgs'], any> {
-  name: 'ResolveToSourceArgs';
-}
-
 export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   Companies?: CompaniesResolvers<ContextType>;
@@ -245,12 +220,8 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   AccessRights?: AccessRightsResolvers<ContextType>;
   AccessRight?: AccessRightResolvers<ContextType>;
   AccessRightCompany?: AccessRightCompanyResolvers<ContextType>;
-  ResolveToSourceArgs?: GraphQLScalarType;
 }>;
 
-export type DirectiveResolvers<ContextType = MeshContext> = ResolversObject<{
-  resolveTo?: resolveToDirectiveResolver<any, any, ContextType>;
-}>;
 
 export type MeshContext = CompanyServiceTypes.Context & AccessRightServiceTypes.Context & BaseMeshContext;
 

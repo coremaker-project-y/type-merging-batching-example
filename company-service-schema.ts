@@ -7,6 +7,11 @@ const companies = [
     legalName: 'Legal Company 2',
   },
   {
+    id: '0',
+    name: 'Company 0',
+    legalName: 'Legal Company 0',
+  },
+  {
     id: '1',
     name: 'Company 1',
     legalName: 'Legal Company 1',
@@ -16,11 +21,7 @@ const companies = [
     name: 'Company 3',
     legalName: 'Legal Company 3',
   },
-  {
-    id: '0',
-    name: 'Company 0',
-    legalName: 'Legal Company 0',
-  },
+
 ];
 
 const CompanyType = new GraphQLObjectType({
@@ -67,7 +68,7 @@ export default new GraphQLSchema({
             type: ListCompaniesByIdsInputType, //new GraphQLList(GraphQLString),
           },
         },
-        resolve: (_, { input: {companiesIds } }) => ({ companies: companiesIds ? companiesIds.map(id => companies.find(company => company.id === id)) : companies})
+        resolve: (_, { input: {companiesIds } }) => ({ companies: companiesIds ? companiesIds.map(id => companies.find(company => company.id === id)).sort((a, b) => 0.5 - Math.random()) : companies})
       },
     },
   }),
