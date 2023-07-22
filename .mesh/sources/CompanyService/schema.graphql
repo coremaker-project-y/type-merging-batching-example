@@ -1,0 +1,17 @@
+schema {
+  query: Query
+}
+
+type Query {
+  listCompanies(ids: [ID]): Companies
+}
+
+type Companies {
+  companies: [Company]
+}
+
+type Company {
+  id: String
+  name: String
+  legalName: String
+}

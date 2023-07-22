@@ -1,0 +1,10 @@
+extend type AccessRightCompany {
+  company: Company @resolveTo(
+    sourceName: "CompanyService",
+    sourceTypeName: "Query",
+    sourceFieldName: "listCompanies",
+    result: "companies",
+    keyField: "id",
+    keysArg: "ids"
+  )
+}

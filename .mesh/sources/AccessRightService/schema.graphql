@@ -1,0 +1,22 @@
+schema {
+  query: Query
+}
+
+type Query {
+  listAccessRights: AccessRights
+}
+
+type AccessRights {
+  accessRight: [AccessRight]
+}
+
+type AccessRight {
+  id: String
+  title: String
+  company: AccessRightCompany
+}
+
+type AccessRightCompany {
+  id: String
+  title: String
+}

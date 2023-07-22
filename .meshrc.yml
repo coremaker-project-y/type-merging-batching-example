@@ -1,0 +1,19 @@
+sources:
+  - name: CompanyService
+    handler:
+      graphql:
+        source: ./company-service-schema.ts
+
+  - name: AccessRightService
+    handler:
+      graphql:
+        source: ./access-right-service-schema.ts
+
+
+# Create a stitching resolver with batching
+# to solve N+1 problem
+additionalTypeDefs: 
+  - './access-right-company-aditional-type.graphql'
+
+#documents:
+#  - ./example-queries/*.graphql
