@@ -24,7 +24,8 @@ const resolvers: Resolvers = {
                   
                   if(!data || !data.companies) return [];
 
-                  return companiesIdsList.map( companyId => data.companies.find( company => company?.id === companyId))
+                  return data.companies
+                  // return companiesIdsList.map( companyId => data.companies.find( company => company?.id === companyId))
               
                 },
                 selectionSet: (companySelectionSet) => /* GraphQL */ `
